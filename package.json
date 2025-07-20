@@ -1,3 +1,33 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:24ecbc5edfdab2ab71b2b92860809b8e7abc9e7714b9f1f5114aaccf635a790e
-size 678
+{
+  "name": "cce-group-b-analysis",
+  "version": "1.0.0",
+  "description": "CCE Group B Result Analysis Tool - Check results, rankings and selection probability",
+  "main": "index.html",
+  "scripts": {
+    "start": "serve",
+    "dev": "serve"
+  },
+  "keywords": [
+    "cce",
+    "group-b",
+    "analysis",
+    "gujarat",
+    "exam",
+    "results"
+  ],
+  "author": "Ajay Ambaliya",
+  "license": "MIT",
+  "dependencies": {
+    "serve": "^14.2.1"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "devDependencies": {
+    "vercel": "^32.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ajayambaliya/Ccegroupb.git"
+  }
+} 
