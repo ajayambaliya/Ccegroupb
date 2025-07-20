@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CCE Group B Result Analysis Tool - Check your exam results, rank, and selection probability">
+    <meta name="keywords" content="CCE Group B, Gujarat Exam, Result Analysis, Selection Probability">
+    <meta property="og:title" content="CCE Group B Result Analysis Tool">
+    <meta property="og:description" content="Analyze CCE Group B results with detailed statistics and selection probability">
+    <meta property="og:image" content="https://currentadda.in/preview.png">
+    <meta property="og:url" content="https://cce-analysis.currentadda.in">
+    <meta name="twitter:card" content="summary_large_image">
+    
+    <title>CCE Group B Result Analysis Tool</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAADHElEQVRYR+2WS2hTURCGZ+a0TbQYH/VRRHwgKIqIoLGIXQmKCxeuBKUIIiqI4MJFBVHcCb5QEF24cyGIj4ULEUQUpUVRUbFUxQdqNVZrHrdzjvlvem9yb3JvbMAIDpxN7vyP+WfOzJlI5D8f0f/UD3p6evZWq9XDSqkOY8w9pVRfLpf7HMZnYACFQuGUMeacMaZZBmOMqSql7hpjLuTz+acNg+jr61uulHpgjFkRxWiMKSulTmSz2ZdROcIA3AHP+XCMGd/IWiaTWRbXQaQLenp69hhjHsYFH7fPaq3PxgEJBYBxqVR6Yoxpn4HzTyllA1Vr/SMqSCiAYrG40RjzLMp41rpsA+VyuS9h+4QCIPvHlFJt0wEopV4rpXbEAQkFIGGw1m6LMg5aU8rlcrFUKrVGCN7UWr8Jkw8FIFmgtX4UZVwul7dYa4VEps1IJpPZHQckFADOrbXbjTGvpgOw1r6XzMlkMu8iOoAdsUHCzkCxWNxljLkfFVzcYIzZmc1mB+L4RAVA8N1KqTtRARDXWh+ICxAHYJ9S6nYcEGttP5kTFyCOC45Ya2/FAdFaH54JQGQQlsvlXQKSyWS+h4EQfL/W+sacABSLxSPGmBvTnYFyubzPWnstCshaezSTyVyaEwDsBKeXzwAAPgiAPdlsdnAmDrDW2rOAXjBdEEqlUtZaS1ecc1t/f7+k6v1cZgDPAc3I5YThtJm5DOKcy3ued2s6AIVCYdRxnGx/f39UO/eXvt9PTp7neY855/UR6xqcc7c9z9vnz57nrecHeYFz7pvjOJsHBwcDGk+S7wMoFAojjuME+r5KpRJIw6C1DrWLGgxPIswgrLhBwAMAqBXnXAcA6I4w9ACwwff9yt8SEMZxnA7G5kqlsr5er8/jnK/lnK8BALIdGHEcZywIBPc1gFqtthSuqdfrB1OpVDcAIN/SVwIAQEZGxwHnXJpYF0QMDAYYIaJRaUQIIdLkTBLRMiJaSkQtYU1rHEADhoiaiKiFiFqJiMRajANoPFYQEbXhJU4xT7nSyvB9pJEpI9IDZojIHQ9AJHbxJvwESHZvyw0iy6kAAAAASUVORK5CYII=">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --accent-color: #4cc9f0;
+            --success-color: #4ade80;
+            --warning-color: #fcd34d;
+            --danger-color: #f87171;
+            --dark-color: #1e293b;
+            --light-color: #f8fafc;
+            --card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --transition: all 0.3s ease;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f1f5f9;
+            color: #334155;
+        }
+        
+        .navbar {
+            background-color: var(--primary-color);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        
+        .welcome-section {
+            background-color: #fff;
+            border-radius: 1rem;
+            box-shadow: var(--card-shadow);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .channel-info {
+            background: linear-gradient(135deg, #4cc9f0 0%, #3a86ff 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+        }
+        
+        .channel-info:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stats-card {
+            background-color: white;
+            border-radius: 1rem;
+            box-shadow: var(--card-shadow);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: var(--transition);
+            border-top: 4px solid var(--primary-color);
+        }
+        
+        .stats-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .chart-container {
+            background-color: white;
+            border-radius: 1rem;
+            box-shadow: var(--card-shadow);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            position: relative;
+            width: 100%;
+            height: auto;
+        }
+        
+        .chart-wrapper {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 75%; /* Aspect ratio for charts */
+        }
+        
+        .chart-wrapper canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100% !important;
+            height: 100% !important;
+        }
+        
+        .search-section {
+            background-color: white;
+            border-radius: 1rem;
+            box-shadow: var(--card-shadow);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            transition: var(--transition);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+        
+        .telegram-btn {
+            background-color: #0088cc;
+            border-color: #0088cc;
+            transition: var(--transition);
+            box-shadow: 0 4px 6px -1px rgba(0, 136, 204, 0.4);
+        }
+        
+        .telegram-btn:hover {
+            background-color: #006699;
+            border-color: #006699;
+            transform: translateY(-2px);
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        #mainContent {
+            display: none;
+        }
+        
+        .result-details {
+            background-color: white;
+            border-radius: 1rem;
+            box-shadow: var(--card-shadow);
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .footer {
+            background-color: var(--dark-color);
+            color: var(--light-color);
+            padding: 2rem 0;
+            margin-top: 2rem;
+            border-top: 5px solid var(--primary-color);
+        }
+        
+        /* Loading Spinner */
+        .spinner-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.8);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .spinner-container {
+            text-align: center;
+        }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid var(--primary-color);
+            border-top: 5px solid transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Table Styles */
+        .table {
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+        
+        .table th {
+            background-color: rgba(67, 97, 238, 0.1);
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        /* Responsive Table */
+        .table-responsive {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        /* Animated Elements */
+        .animate-in {
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 5px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--secondary-color);
+        }
+        
+        /* Author Box Styles */
+        .author-box {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border: 1px solid rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+        
+        .author-box img {
+            transition: all 0.3s ease;
+        }
+        
+        .author-box img:hover {
+            transform: scale(1.05);
+        }
+        
+        .author-box h5 {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        .author-box .btn-outline-primary:hover,
+        .author-box .btn-outline-info:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .stats-card {
+                margin-bottom: 1rem;
+            }
+            
+            .welcome-section, .search-section, .chart-container {
+                padding: 1rem;
+            }
+            
+            h1, h2 {
+                font-size: 1.5rem;
+            }
+            
+            h3, h4 {
+                font-size: 1.2rem;
+            }
+            
+            .card-header h5 {
+                font-size: 1rem;
+            }
+            
+            .table th, .table td {
+                padding: 0.5rem;
+                font-size: 0.9rem;
+            }
+            
+            .progress {
+                height: 20px !important;
+            }
+            
+            .progress-bar {
+                font-size: 0.8rem;
+                line-height: 20px;
+            }
+            
+            .alert {
+                padding: 0.75rem;
+                font-size: 0.9rem;
+            }
+            
+            .navbar-brand {
+                font-size: 1.1rem;
+            }
+            
+            .author-box {
+                padding: 15px;
+                text-align: center;
+            }
+            
+            .author-box img {
+                max-width: 120px;
+                margin-bottom: 15px;
+            }
+            
+            .author-box .d-flex {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            .author-box .btn {
+                margin-bottom: 10px;
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .container {
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+            
+            .card-body {
+                padding: 0.75rem;
+            }
+            
+            .btn {
+                padding: 0.375rem 0.5rem;
+                font-size: 0.9rem;
+            }
+            
+            .stats-value {
+                font-size: 1.5rem !important;
+            }
+            
+            .stats-label {
+                font-size: 0.8rem;
+            }
+            
+            .table-responsive {
+                margin-bottom: 1rem;
+            }
+            
+            .specialStatusSection .alert {
+                padding: 0.5rem;
+                margin-bottom: 0.5rem;
+            }
+            
+            .specialStatusSection .alert strong {
+                display: block;
+                margin-bottom: 0.25rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Spinner -->
+    <div id="spinner" class="spinner-overlay">
+        <div class="spinner-container">
+            <div class="spinner"></div>
+            <p class="mt-3">Loading Data...</p>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-chart-bar me-2"></i>CCE Group B Analysis
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#statistics"><i class="fas fa-chart-pie me-1"></i>Statistics</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#searchSection"><i class="fas fa-search me-1"></i>Check Result</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://t.me/currentadda" target="_blank">
+                            <i class="fab fa-telegram me-1"></i>Join Telegram
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://instagram.com/ajayambaliyaa" target="_blank">
+                            <i class="fab fa-instagram me-1"></i>Follow on Instagram
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <!-- Welcome Section -->
+        <div id="welcomeSection" class="welcome-section animate-in">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <h1 class="display-5 fw-bold mb-4">CCE Group B Result Analysis</h1>
+                    <p class="lead">Check your selection probability based on your marks and category. This tool provides accurate analysis of your result with respect to overall competition.</p>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                        <button type="button" id="startBtn" class="btn btn-primary btn-lg px-4 me-md-2">
+                            <i class="fas fa-play me-2"></i>Click Here to Analysis Tool
+                        </button>
+                        <a href="https://t.me/currentadda" target="_blank" class="btn telegram-btn text-white btn-lg px-4">
+                            <i class="fab fa-telegram me-2"></i>Join Telegram
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-4 mt-4 mt-lg-0 text-center">
+                    <div class="channel-info p-4">
+                        <i class="fab fa-telegram fa-4x mb-3"></i>
+                        <h4>Current Adda</h4>
+                        <p>Join our Telegram channel for latest updates on Gujarat Government Exams</p>
+                        <a href="https://t.me/currentadda" class="btn btn-light" target="_blank">
+                            <i class="fab fa-telegram me-2"></i>Join Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Author Profile Section -->
+            <div class="author-box mt-4 animate-in shadow">
+                <div class="row align-items-center">
+                    <div class="col-md-3 text-center mb-3 mb-md-0">
+                        <img src="https://gpscquiz.in/storage/data/selfie.jpg" class="rounded-circle img-fluid shadow-sm" style="max-width: 150px; border: 3px solid var(--primary-color);" alt="Ajay Ambaliya">
+                    </div>
+                    <div class="col-md-9">
+                        <h4 class="mb-2 text-primary"><i class="fas fa-user-circle me-2"></i>About the Author</h4>
+                        <h5>Ajay Ambaliya</h5>
+                        <p class="text-muted mb-2">Senior Clerk at Health Department</p>
+                        <p>I love to make this kind of tools which can help students prepare for competitive exams. My goal is to provide useful resources that make exam preparation easier and more effective.</p>
+                        <div class="d-flex mt-3">
+                            <a href="https://instagram.com/ajayambaliyaa" target="_blank" class="btn btn-sm btn-outline-primary me-2">
+                                <i class="fab fa-instagram me-1"></i> Follow on Instagram
+                            </a>
+                            <a href="https://t.me/currentadda" target="_blank" class="btn btn-sm btn-outline-info">
+                                <i class="fab fa-telegram me-1"></i> Join Telegram Channel
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Main Content (Initially Hidden) -->
+        <div id="mainContent">
+            <div id="statistics" class="mb-5">
+                <h2 class="text-center mb-4"><i class="fas fa-chart-pie me-2"></i>Result Statistics</h2>
+                
+                <div class="row mb-4">
+                    <div class="col-md-4 mb-3">
+                        <div class="stats-card text-center">
+                            <i class="fas fa-users fa-2x text-primary mb-2"></i>
+                            <h3 id="totalCandidates" class="display-6 fw-bold stats-value">0</h3>
+                            <p class="text-muted mb-0 stats-label">Total Candidates</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="stats-card text-center">
+                            <i class="fas fa-briefcase fa-2x text-success mb-2"></i>
+                            <h3 id="totalVacancies" class="display-6 fw-bold stats-value">0</h3>
+                            <p class="text-muted mb-0 stats-label">Total Vacancies</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="stats-card text-center">
+                            <i class="fas fa-trophy fa-2x text-warning mb-2"></i>
+                            <h3 id="averageMarks" class="display-6 fw-bold stats-value">0</h3>
+                            <p class="text-muted mb-0 stats-label">Average Marks</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-lg-6 mb-4">
+                        <div class="chart-container">
+                            <h5 class="mb-3"><i class="fas fa-chart-bar me-2"></i>Marks Distribution</h5>
+                            <div class="chart-wrapper">
+                                <canvas id="marksDistributionChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 mb-4">
+                        <div class="chart-container">
+                            <h5 class="mb-3"><i class="fas fa-chart-pie me-2"></i>Category Distribution</h5>
+                            <div class="chart-wrapper">
+                                <canvas id="categoryDistributionChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-12 mb-4">
+                        <div class="chart-container">
+                            <h5 class="mb-3"><i class="fas fa-chart-line me-2"></i>Category-wise Marks Distribution</h5>
+                            <div class="chart-wrapper" style="padding-bottom: 60%;">
+                                <canvas id="categoryMarksChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="searchSection" class="search-section mb-5">
+                <h2 class="text-center mb-4"><i class="fas fa-search me-2"></i>Check Your Result</h2>
+                <div class="row justify-content-center">
+                    <div class="col-md-8 col-lg-6">
+                        <div class="input-group mb-3">
+                            <input type="text" id="rollNumberInput" class="form-control form-control-lg" placeholder="Enter Your Roll Number" aria-label="Roll Number" aria-describedby="searchBtn">
+                            <button class="btn btn-primary" type="button" id="searchBtn">
+                                <i class="fas fa-search me-2"></i>Search
+                            </button>
+                        </div>
+                        <div class="text-center text-muted small">
+                            <i class="fas fa-info-circle me-1"></i>Enter your roll number exactly as it appears in the result
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Result Details Section -->
+                <div id="resultDetails" class="result-details animate-in mt-5" style="display: none;">
+                    <h3 class="text-center mb-4"><i class="fas fa-search-plus me-2"></i>Your Result Analysis</h3>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <div class="card h-100 shadow-sm border-0">
+                                <div class="card-header bg-primary text-white">
+                                    <h5 class="mb-0"><i class="fas fa-user-circle me-2"></i>Candidate Details</h5>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-borderless">
+                                        <tbody>
+                                            <tr>
+                                                <th scope="row">Roll Number:</th>
+                                                <td><span id="rollNumber" class="fw-bold">-</span></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Gender:</th>
+                                                <td><span id="gender">-</span></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Category:</th>
+                                                <td><span id="category">-</span></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Obtained Marks:</th>
+                                                <td><span id="marks" class="fw-bold">-</span></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Overall Rank:</th>
+                                                <td><span id="overallRank" class="fw-bold">-</span></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Category Rank:</th>
+                                                <td><span id="categoryRank" class="fw-bold">-</span></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6 mb-4">
+                            <div class="card h-100 shadow-sm border-0">
+                                <div class="card-header bg-primary text-white">
+                                    <h5 class="mb-0"><i class="fas fa-chart-line me-2"></i>Candidates Ahead</h5>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-borderless">
+                                        <tbody>
+                                            <tr>
+                                                <th scope="row">Overall Ahead:</th>
+                                                <td><span id="overallAhead">-</span></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Males Ahead:</th>
+                                                <td><span id="maleAhead">-</span></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Females Ahead:</th>
+                                                <td><span id="femaleAhead">-</span></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Category Ahead:</th>
+                                                <td><span id="categoryAhead">-</span></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Category Males Ahead:</th>
+                                                <td><span id="categoryMaleAhead">-</span></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Category Females Ahead:</th>
+                                                <td><span id="categoryFemaleAhead">-</span></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Special Status Section for Reservation Status -->
+                    <div id="specialStatusSection" class="mb-4" style="display: none;">
+                        <div class="card shadow-sm border-0">
+                            <div class="card-header bg-primary text-white">
+                                <h5 class="mb-0"><i class="fas fa-star me-2"></i>Special Status & Reservation Eligibility</h5>
+                            </div>
+                            <div class="card-body">
+                                <div id="specialStatusDetails">
+                                    <!-- Content will be dynamically populated based on candidate's status -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card shadow-sm border-0 mb-4">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="mb-0"><i class="fas fa-percentage me-2"></i>Selection Probability</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="progress" style="height: 30px;">
+                                <div id="selectionProbability" class="progress-bar bg-success" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+                            </div>
+                            <div class="mt-3" id="selectionMessage"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- New Document Verification Probability Section -->
+                    <div class="card shadow-sm border-0 mb-4">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="mb-0"><i class="fas fa-file-alt me-2"></i>Document Verification Probability</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="mb-3"><small class="text-muted"><i class="fas fa-info-circle me-1"></i>Document verification typically invites 1.5 times the total vacancies.</small></p>
+                            <div class="progress" style="height: 30px;">
+                                <div id="dvProbability" class="progress-bar bg-info" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+                            </div>
+                            <div class="mt-3" id="dvMessage"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="card shadow-sm border-0">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="mb-0"><i class="fas fa-table me-2"></i>Category-wise Candidates Ahead</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover table-bordered">
+                                    <thead>
+                                        <tr class="table-light">
+                                            <th>Category</th>
+                                            <th>Males Ahead</th>
+                                            <th>Females Ahead</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="categoryGenderAheadTable">
+                                        <!-- Table will be populated dynamically -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- New Probable Cut-off Marks Section -->
+            <div class="chart-container mt-5">
+                <h2 class="text-center mb-4"><i class="fas fa-cut me-2"></i>Probable Cut-off Marks</h2>
+                <p class="text-center mb-4"><small class="text-muted">Estimated cut-off marks based on current data and reservation system</small></p>
+                
+                <div class="table-responsive">
+                    <table class="table table-hover table-bordered">
+                        <thead class="table-primary">
+                            <tr>
+                                <th>Category</th>
+                                <th>Final Selection Cut-off</th>
+                                <th>Document Verification Cut-off</th>
+                                <th>Women Cut-off</th>
+                                <th>PH Cut-off</th>
+                                <th>Ex-Servicemen Cut-off</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cutOffTable">
+                            <!-- Cut-off marks will be populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="alert alert-info mt-3">
+                    <i class="fas fa-info-circle me-2"></i>
+                    <strong>Note:</strong> These cut-offs are estimates based on current data and the reservation rules. 
+                    Final cut-offs may vary based on official decisions and tie-breaking rules.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 mb-4 mb-md-0">
+                    <h5 class="text-white mb-3">CCE Group B Analysis Tool</h5>
+                    <p class="text-light">A comprehensive analysis tool to check your result and selection probability for CCE Group B examination.</p>
+                    <p class="text-light"><small>This tool uses the official result data and vacancy information to provide accurate analysis.</small></p>
+                </div>
+                <div class="col-md-6">
+                    <h5 class="text-white mb-3">Important Links</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <a href="https://t.me/currentadda" class="text-light text-decoration-none" target="_blank">
+                                <i class="fab fa-telegram me-2"></i>Current Adda Telegram Channel
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="https://currentadda.in" class="text-light text-decoration-none" target="_blank">
+                                <i class="fas fa-globe me-2"></i>Current Adda Website
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="https://instagram.com/ajayambaliyaa" class="text-light text-decoration-none" target="_blank">
+                                <i class="fab fa-instagram me-2"></i>Follow on Instagram
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4 bg-light opacity-25">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0 text-light">© 2023 Current Adda. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <p class="mb-0 text-light">Created by <a href="https://instagram.com/ajayambaliyaa" class="text-light text-decoration-none" target="_blank">Ajay Ambaliya</a></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Main Script -->
+    <script src="script.js"></script>
+</body>
+</html> 
