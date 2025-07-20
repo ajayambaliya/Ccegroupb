@@ -1,3 +1,34 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:68be22e9e22f3a9787f29354035f252d8c1c9a3d78ff28ab9ca0283b58ee68a8
-size 571
+{
+    "total_vacancies": 3628,
+    "categories": {
+      "General": {
+        "total": 1515,
+        "women": 485
+      },
+      "EWS": {
+        "total": 344,
+        "women": 99
+      },
+      "SEBC": {
+        "total": 1008,
+        "women": 319
+      },
+      "SC": {
+        "total": 231,
+        "women": 67
+      },
+      "ST": {
+        "total": 530,
+        "women": 164
+      }
+    },
+    "reserved_quotas": {
+      "ExServicemen_3percent": {
+        "total": 342
+      },
+      "PH": {
+        "total": 178
+      }
+    }
+  }
+  
